@@ -1,0 +1,26 @@
+CREATE DATABASE vargas;
+
+USE vargas;
+
+CREATE TABLE student (
+    StudNo VARCHAR(15) PRIMARY KEY,
+    StudFname VARCHAR(15),
+    StudLname VARCHAR(15),
+    Major VARCHAR(15),
+    Gender ENUM('F', 'M'),
+    HomeAddress VARCHAR(15)
+);
+
+CREATE TABLE subject (
+    SubjectCode VARCHAR(15) PRIMARY KEY,
+    SubjectDescr VARCHAR(15)
+);
+
+CREATE TABLE grade (
+    StudNo VARCHAR(15),
+    SubjectCode VARCHAR(15),
+    Grade INT,
+    FOREIGN KEY (StudNo) REFERENCES student(StudNo),
+    FOREIGN KEY (SubjectCode) REFERENCES subject(SubjectCode),
+    PRIMARY KEY (StudNo, SubjectCode)
+);
