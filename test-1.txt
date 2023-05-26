@@ -1,0 +1,25 @@
+CREATE DATABASE data_student;
+
+use data_student;
+
+CREATE TABLE student_info(
+    student_no int PRIMARY KEY AUTO_INCREMENT,
+    student_fname varchar(50),
+    student_lname varchar(50),
+    major varchar(50),
+    gender varchar(50),
+    home_address varchar(50)
+);
+
+CREATE TABLE grade(
+    student_no int,
+    sub_code int PRIMARY KEY AUTO_INCREMENT,
+    grade double,
+    CONSTRAINT FKstudent_info FOREIGN KEY (student_no) REFERENCES student_info(student_no)
+);
+
+CREATE TABLE subject(
+    sub_code int,
+    sub_descr varchar(50),
+    CONSTRAINT FKgrade FOREIGN KEY (sub_code) REFERENCES grade(sub_code)
+);
