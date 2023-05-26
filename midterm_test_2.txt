@@ -1,0 +1,28 @@
+CREATE DATABASE nashua_fine_arts_gallery;
+
+USE nashua_fine_arts_gallery;
+
+CREATE TABLE art_customer (
+    customer_number INT,
+    customer_name VARCHAR(50),
+    customer_gender ENUM ('Male','Female') DEFAULT ('Male'),
+    address VARCHAR(50),
+    artist_ID INT PRIMARY KEY AUTO_INCREMENT,
+    price INT(11)
+);
+
+CREATE TABLE art_artist (
+    artist_name VARCHAR(50),
+    art_title VARCHAR(50),
+    art_price INT(11),
+    art_description INT PRIMARY KEY AUTO_INCREMENT,
+    FOREIGN KEY (art_description) REFERENCES art_customer(artist_ID)
+);
+
+SELECT * FROM art_customer WHERE customer_number = ... AND customer_name = ... LIMIT 0, 25;
+
+SELECT * FROM art_artist WHERE artist_name = ... AND art_description = ...;
+SELECT * FROM art_customer WHERE price * 0.12 = ...;
+SELECT * FROM art_artist;
+SELECT * FROM art_artist WHERE art_price = ... AND art_title = ...;
+SELECT * FROM art_customer WHERE customer_number = ... AND artist_ID = ...;
