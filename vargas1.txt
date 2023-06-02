@@ -2,25 +2,68 @@ CREATE DATABASE vargas;
 
 USE vargas;
 
-CREATE TABLE student (
-    StudNo VARCHAR(15) PRIMARY KEY,
-    StudFname VARCHAR(15),
-    StudLname VARCHAR(15),
-    Major VARCHAR(15),
-    Gender ENUM('F', 'M'),
-    HomeAddress VARCHAR(15)
+CREATE TABLE student(
+	id int PRIMARY KEY AUTO_INCREMENT,
+    StudNo varchar(11),
+    StudFName varchar(50),
+    StudLName varchar(50),
+    Major varchar(50),
+    Gender ENUM('M','F') DEFAULT 'M',
+    HomeAddress varchar(50)
 );
 
-CREATE TABLE subject (
-    SubjectCode VARCHAR(15) PRIMARY KEY,
-    SubjectDescr VARCHAR(15)
+CREATE TABLE grade(
+	id int PRIMARY KEY AUTO_INCREMENT,
+    StudNo varchar(50),
+    SubjectCode ENUM('Chem 123','Math 122','Math 123') DEFAULT 'Chem 123',
+    Grade varchar (11)
 );
 
-CREATE TABLE grade (
-    StudNo VARCHAR(15),
-    SubjectCode VARCHAR(15),
-    Grade INT,
-    FOREIGN KEY (StudNo) REFERENCES student(StudNo),
-    FOREIGN KEY (SubjectCode) REFERENCES subject(SubjectCode),
-    PRIMARY KEY (StudNo, SubjectCode)
+CREATE TABLE subject(
+	id int PRIMARY KEY AUTO_INCREMENT,
+    SubjectCode ENUM('Chem 123','Math 122','Math 123') DEFAULT 'Chem 123',
+    SubjectDescr varchar(50)
 );
+
+INSERT INTO student 
+(StudNo,StudFName,StudLName,Major,Gender,HomeAddress) VALUES
+("S-101", "Ana", "Cruz","ECE", "F", "Malolos, Bulacan"),
+("S-102", "Hazel", "Ponce","COE", "F", "Plaridel, Bulacan"),
+("S-103", "Cristov", "Conclo","ECE", "M", "Malolos, Bulacan"),
+("S-104", "Aris", "Clavio","COE", "M", "Pullian, Bulacan"),
+("S-105", "Honey", "Pelayo","COE", "F", "Plaridel, Bulacan"),
+("S-106", "Carrie", "Abao","ECE", "F", "Pullian, Bulacan")
+;
+
+INSERT INTO grade 
+(StudNo,SubjectCode,Grade) VALUES
+("S-101", "Chem 123", "2.00"),
+("S-101", "Math 122", "1.00"),
+("S-101", "Math 123", "1.50"),
+("S-102", "Chem 123", "1.75"),
+("S-102", "Math 122", "1.25"),
+("S-102", "Math 123", "1.50"),
+("S-103", "Chem 123", "2.00"),
+("S-103", "Math 122", "1.75"),
+("S-103", "Math 123", "1.25"),
+("S-104", "Chem 123", "1.25"),
+("S-104", "Math 122", "2.25"),
+("S-104", "Math 123", "2.50"),
+("S-105", "Chem 123", "1.00"),
+("S-105", "Math 122", "1.25"),
+("S-105", "Math 123", "2.50"),
+("S-106", "Chem 123", "1.25"),
+("S-106", "Math 122", "1.50"),
+("S-106", "Math 123", "1.75")
+;
+
+INSERT INTO subject 
+(SubjectCode,SubjectDescr) VALUES
+("Chem 123", "Chemistry"),
+("Math 122", "Trigonometry"),
+("Chem 123", "Algebra")
+;
+
+1. SELECT * FROM student WHERE Gender="F" AND Major="ECE" AND HomeAddress="Malolos, Bulacan";
+2. SELECT * FROM grade WHERE SubjectCode="Math 122" AND Grade < 2;
+3. SELECT StudFName, StudLName, Gender, HomeAddress FROM student INNER JOIN grade ON student.Gender = grade.SubjectCode;
