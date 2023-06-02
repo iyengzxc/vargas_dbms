@@ -1,25 +1,64 @@
-CREATE DATABASE vargas_students;
+CREATE DATABASE vargas;
 
-use vargas_students;
+USE vargas;
 
-CREATE TABLE student_info(
-    student_no int PRIMARY KEY AUTO_INCREMENT,
-    student_fname varchar(50),
-    student_lname varchar(50),
-    major varchar(50),
-    gender varchar(50),
-    home_address varchar(50)
+CREATE TABLE student(
+	id int PRIMARY KEY AUTO_INCREMENT,
+    StudNo int(11),
+    StudFName varchar(50),
+    StudLName varchar(50),
+    Major varchar(50),
+    Gender ENUM('M','F') DEFAULT 'M',
+    HomeAddress varchar(50)
 );
 
 CREATE TABLE grade(
-    student_no int,
-    sub_code int PRIMARY KEY AUTO_INCREMENT,
-    grade double,
-    CONSTRAINT FKstudent_info FOREIGN KEY (student_no) REFERENCES student_info(student_no)
+	id int PRIMARY KEY AUTO_INCREMENT,
+    StudNo varchar(50),
+    SubjectCode varchar (50),
+    Grade int (11)
 );
 
 CREATE TABLE subject(
-    sub_code int,
-    sub_descr varchar(50),
-    CONSTRAINT FKgrade FOREIGN KEY (sub_code) REFERENCES grade(sub_code)
+	id int PRIMARY KEY AUTO_INCREMENT,
+    SubjectCode varchar(50),
+    SubjectDescr varchar(50)
 );
+
+INSERT INTO student 
+(StudNo,StudFName,StudLName,Major,Gender,HomeAddress) VALUES
+("S-101", "Ana", "Cruz","ECE", "F", "Malolos, Bulacan"),
+("S-102", "Hazel", "Ponce","COE", "F", "Plaridel, Bulacan"),
+("S-103", "Cristov", "Conclo","ECE", "M", "Malolos, Bulacan"),
+("S-104", "Aris", "Clavio","COE", "M", "Pullian, Bulacan"),
+("S-105", "Honey", "Pelayo","COE", "F", "Plaridel, Bulacan"),
+("S-106", "Carrie", "Abao","ECE", "F", "Pullian, Bulacan")
+;
+
+INSERT INTO grade 
+(StudNo,SubjectCode,Grade) VALUES
+("S-101", "Chem 123", "2.00"),
+("S-101", "Math 122", "1.00"),
+("S-101", "Math 123", "1.50"),
+("S-102", "Chem 123", "1.75"),
+("S-102", "Math 122", "1.25"),
+("S-102", "Math 123", "1.50"),
+("S-103", "Chem 123", "2.00"),
+("S-103", "Math 122", "1.75"),
+("S-103", "Math 123", "1.25"),
+("S-104", "Chem 123", "1.25"),
+("S-104", "Math 122", "2.25"),
+("S-104", "Math 123", "2.50"),
+("S-105", "Chem 123", "1.00"),
+("S-105", "Math 122", "1.25"),
+("S-105", "Math 123", "2.50"),
+("S-106", "Chem 123", "1.25"),
+("S-106", "Math 122", "1.50"),
+("S-106", "Math 123", "1.75")
+;
+INSERT INTO subject 
+(SubjectCode,SubjectDescr) VALUES
+("Chem 123", "Chemistry"),
+("Math 122", "Trigonometry"),
+("Math 123", "Algebra")
+;
